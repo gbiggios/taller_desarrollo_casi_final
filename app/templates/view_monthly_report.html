@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte Mensual</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Reporte de Asistencia desde {{ start_date }} hasta {{ end_date }}</h1>
+        {% for mes, data in monthly_data.items() %}
+        <h2>{{ mes }}</h2>
+        <h3>Porcentaje de Asistencia: {{ data.porcentaje_asistencia }}%</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Presentes</th>
+                    <th>Ausentes</th>
+                    <th>Bitácora</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for clase in data.clases %}
+                <tr>
+                    <td>{{ clase.fecha }}</td>
+                    <td>{{ clase.presentes }}</td>
+                    <td>{{ clase.ausentes }}</td>
+                    <td>{{ clase.comentario_bitacora }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endfor %}
+        <a href="{{ url_for('asistencias.monthly_report') }}" class="btn btn-secondary mt-3">Volver</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudiantes en Talleres</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Estudiantes en Talleres</h1>
+        <form action="{{ url_for('estudiante_talleres') }}" method="POST" class="mb-4">
+            <div class="form-group">
+                <label for="taller_id">Seleccionar Taller</label>
+                <select name="taller_id" id="taller_id" class="form-control">
+                    <option value="">Todos los Talleres</option>
+                    {% for taller in talleres %}
+                    <option value="{{ taller.taller_id }}">{{ taller.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID Taller Estudiante</th>
+                    <th>Estudiante</th>
+                    <th>Taller</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for et in estudiante_talleres %}
+                <tr>
+                    <td>{{ et.id_taller_estudiante }}</td>
+                    <td>{{ et.estudiante.nombre }} {{ et.estudiante.apellido_paterno }} {{ et.estudiante.apellido_materno }}</td>
+                    <td>{{ et.taller.nombre }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_estudiante_taller', id_taller_estudiante=et.id_taller_estudiante) }}" method="post" style="display:inline-block;">
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ url_for('new_estudiante_taller') }}" class="btn btn-success">Asignar Estudiantes a Taller</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitácoras de {{ taller.nombre }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Bitácoras de {{ taller.nombre }}</h1>
+        <ul class="list-group">
+            {% for clase in clases %}
+            <li class="list-group-item">
+                <strong>{{ clase.fecha }}:</strong> {{ clase.comentario_bitacora }}
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('bitacoras.taller_bitacoras') }}" class="btn btn-secondary mt-3">Volver</a>
+    </div>
+</body>
+</html>
